@@ -80,7 +80,15 @@
         }
         function showVip() { document.getElementById('vipBox').style.display = 'block'; window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }
         function copyWallet() { navigator.clipboard.writeText("0xcF85220ED48390546BF9C1ab8B5056B009221BB7"); alert(translations[currentLang].alert); }
-        function sendToTelegram() { const telegramId = "Dailyguess"; const msg = encodeURIComponent(translations[currentLang].tgMsg); window.open(`https://t.me/${telegramId}?text=${msg}`, '_blank'); }
+
+        function sendToTelegram() {
+    const telegramId = "Dailyguess"; // آیدی ربات یا اکانت شما
+    const msg = encodeURIComponent(translations[currentLang].tgMsg);
+    // اضافه کردن کد زبان به انتهای پیام برای اینکه شما بفهمید به چه زبانی جواب دهید
+    const langNote = encodeURIComponent("\n\n(Language: " + currentLang + ")");
+    window.open(`https://t.me/${telegramId}?text=${msg}${langNote}`, '_blank');
+}
+
     </script>
 </body>
 </html>
