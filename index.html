@@ -84,7 +84,7 @@
         function showVip() { document.getElementById('vipBox').style.display = 'block'; window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }
         function copyWallet() { navigator.clipboard.writeText("0xcF85220ED48390546BF9C1ab8B5056B009221BB7"); alert(translations[currentLang].alert); }
         function sendToTelegram() { 
-            const telegramId = "Dailyguess"; 
+            const telegramId = "DailyGuess_bot"; 
             const msg = encodeURIComponent(translations[currentLang].tgMsg);
             const langNote = encodeURIComponent("\n\n(Language: " + currentLang + ")");
             window.open(`https://t.me/${telegramId}?text=${msg}${langNote}`, '_blank'); 
