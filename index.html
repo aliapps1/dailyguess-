@@ -33,34 +33,34 @@
         <button class="lang" onclick="setLang('fa')">فارسی</button>
     </div>
     <div class="card">
-        <span class="badge" id="badgeText">Collective Intelligence</span>
-        <h1 id="question">Retail vs. Whale Behavior Analysis</h1>
-        <p class="description" id="subText">Are you falling into the crowd's trap?</p>
+        <span class="badge" id="badgeText">Market Intelligence</span>
+        <h1 id="question">Retail vs. Big Money Analysis</h1>
+        <p class="description" id="subText">Are you following the crowd or the leaders?</p>
         <select id="userChoice">
-            <option value="1" id="opt1">Bullish - High Confidence (Buy Trap?)</option>
+            <option value="1" id="opt1">Bullish - High Confidence (Safe?)</option>
             <option value="2" id="opt2">Bullish - Cautious</option>
-            <option value="3" id="opt3">Bearish - High Confidence (Sell Exhaustion?)</option>
+            <option value="3" id="opt3">Bearish - High Confidence (Trap?)</option>
             <option value="4" id="opt4">Bearish - Cautious</option>
         </select>
-        <button class="btn-main" onclick="showVip()" id="btnText">Extract Patterns & View Anomaly 🚀</button>
+        <button class="btn-main" onclick="showVip()" id="btnText">Show Market Secret & Patterns 🚀</button>
         <div id="vipBox" class="vip-box">
-            <h3 id="vipTitle" style="color:var(--gold); margin-top: 0;">💎 Behavioral Anomaly Report</h3>
-            <p id="vipDesc" style="font-size:12px; color:#ccc;">Unlock today's report to see divergence in crowd behavior.</p>
+            <h3 id="vipTitle" style="color:var(--gold); margin-top: 0;">💎 Special Market Report</h3>
+            <p id="vipDesc" style="font-size:12px; color:#ccc;">Unlock today's secret report to see where the big money is moving.</p>
             <div class="wallet-container">
-                <span class="network-tip" id="networkTip">Recommended: BEP20 (Fee ~$0.3)</span>
+                <span class="network-tip" id="networkTip">Best Option: BEP20 (Fee ~$0.3)</span>
                 <span style="font-size:10px; color:var(--soft-gray); display:block; margin-bottom:5px;">Network: USDT (BEP20 / ERC20)</span>
                 <code class="wallet" id="walletAddr">0xcF85220ED48390546BF9C1ab8B5056B009221BB7</code>
             </div>
             <button class="copy-btn" onclick="copyWallet()" id="copyBtnText">Copy Wallet Address 📋</button>
             <button class="telegram-btn" onclick="sendToTelegram()" id="tgBtnText">Send Receipt to Telegram 🚀</button>
-            <p class="footer-info" id="footerText">Deposit 5 USDT -> Send Receipt -> Get Analysis</p>
+            <p class="footer-info" id="footerText">Deposit 5 USDT -> Send Receipt -> Get Report</p>
         </div>
     </div>
     <script>
         const translations = {
-            en: { badge: "Collective Intelligence", q: "Retail vs. Whale Behavior Analysis", sub: "Are you falling into the crowd's trap?", opt1: "Bullish - High Confidence (Buy Trap?)", opt2: "Bullish - Cautious", opt3: "Bearish - High Confidence (Sell Exhaustion?)", opt4: "Bearish - Cautious", btn: "Extract Patterns & View Anomaly 🚀", vipT: "💎 Behavioral Anomaly Report", vipD: "Unlock today's report to see divergence in crowd behavior and market reversal points.", copy: "Copy Wallet Address 📋", tg: "Send Receipt to Telegram 🚀", footer: "Deposit 5 USDT -> Send Receipt -> Get Analysis", network: "Recommended: BEP20 (Fee ~$0.3)", dir: "ltr", alert: "Wallet address copied!", tgMsg: "Hello, I've deposited 5 USDT. Please send me the Behavioral Anomaly Report." },
-            fa: { badge: "هوش جمعی", q: "تحلیل رفتار توده در مقابل نهنگ‌ها", sub: "ببین اکثریت بازار در چه تله‌ای افتاده‌اند؟", opt1: "صعودی - اطمینان کامل (تله خریداران؟)", opt2: "صعودی - محتاطانه", opt3: "نزولی - اطمینان کامل (اشباع فروش؟)", opt4: "نزولی - محتاطانه", btn: "استخراج الگو و مشاهده آنومالی 🚀", vipT: "💎 گزارش آنومالی رفتاری (VIP)", vipD: "برای دسترسی به تحلیل واگرایی رفتار توده و شناسایی نقاط برگشت قیمت، گزارش امروز را باز کنید.", copy: "کپی آدرس ولت 📋", tg: "ارسال رسید در تلگرام 🚀", footer: "واریز ۵ تتر -> ارسال رسید -> دریافت فایل آنالیز", network: "پیشنهاد: شبکه BEP20 (کارمزد ~۰.۳ دلار)", dir: "rtl", alert: "آدرس ولت کپی شد!", tgMsg: "سلام، من ۵ تتر برای دریافت گزارش آنومالی و تحلیل نهنگ‌ها واریز کردم. این رسید من است:" },
-            ar: { badge: "الذكاء الجماعي", q: "تحليل سلوك الجمهور مقابل الحيتان", sub: "هل تقع في فخ المتداولين الآخرين؟", opt1: "صعودي - ثقة عالية (فخ شراء؟)", opt2: "صعودي - حذر", opt3: "نزولي - ثقة عالية (استنزاف البيع؟)", opt4: "نزولي - حذر", btn: "استخراج الأنماط وعرض الشذوذ 🚀", vipT: "💎 تقرير شذوذ السلوك (VIP)", vipD: "افتح تقرير اليوم لمشاهدة الانحراف في سلوك الجمهور ونقاط انعكاس السوق.", copy: "نسخ عنوان المحفظة 📋", tg: "إرسال الإيصال عبر تلغرام 🚀", footer: "إيداع 5 USDT -> إرسال الإيصال -> استلام التحليل", network: "نوصي بـ: BEP20 (رسوم ~0.3 دولار)", dir: "rtl", alert: "تم نسخ عنوان المحفظة!", tgMsg: "مرحباً، لقد أودعت 5 USDT للحصول على تقرير شذوذ السلوك وتحليل الحيتان. إليك الإيصال:" }
+            en: { badge: "Market Intelligence", q: "Retail vs. Big Money Analysis", sub: "Are you following the crowd or the leaders?", opt1: "Bullish - High Confidence (Safe?)", opt2: "Bullish - Cautious", opt3: "Bearish - High Confidence (Trap?)", opt4: "Bearish - Cautious", btn: "Show Market Secret & Patterns 🚀", vipT: "💎 Special Market Report", vipD: "Unlock today's secret report to see where the big money is moving and avoid market traps.", copy: "Copy Wallet Address 📋", tg: "Send Receipt to Telegram 🚀", footer: "Deposit 5 USDT -> Send Receipt -> Get Report", network: "Best Option: BEP20 (Fee ~$0.3)", dir: "ltr", alert: "Wallet copied!", tgMsg: "Hello, I sent 5 USDT. Please send today's VIP report." },
+            fa: { badge: "هوش بازار", q: "تحلیل رفتار مردم در مقابل پول‌دارهای بزرگ", sub: "آیا در تله اکثریت بازار هستید یا با بزرگان حرکت می‌کنید؟", opt1: "صعودی - اطمینان بالا (خرید مطمئن؟)", opt2: "صعودی - محتاطانه", opt3: "نزولی - اطمینان بالا (تله فروش؟)", opt4: "نزولی - محتاطانه", btn: "مشاهده رازهای بازار و فرصت‌ها 🚀", vipT: "💎 گزارش ویژه بازار (VIP)", vipD: "با دریافت این گزارش، مسیر حرکت پول‌دارهای بزرگ را ببینید و از تله‌های بازار دور بمانید.", copy: "کپی آدرس واریز 📋", tg: "ارسال رسید در تلگرام 🚀", footer: "واریز ۵ تتر -> ارسال رسید -> دریافت تحلیل", network: "پیشنهاد: شبکه BEP20 (کمترین کارمزد)", dir: "rtl", alert: "آدرس واریز کپی شد!", tgMsg: "سلام، من ۵ تتر واریز کردم. لطفاً گزارش ویژه امروز را بفرستید." },
+            ar: { badge: "ذكاء السوق", q: "تحليل حركة المتداولين مقابل كبار المستثمرين", sub: "هل أنت مع عامة الناس أم مع أصحاب الملايين؟", opt1: "صعودي - ثقة عالية (شراء آمن؟)", opt2: "صعودي - حذر", opt3: "هبوطي - ثقة عالية (فخ بيع؟)", opt4: "هبوطي - حذر", btn: "كشف أسرار السوق والفرص 🚀", vipT: "💎 تقرير السوق الخاص (VIP)", vipD: "افتح تقرير اليوم لتعرف أين تتحرك الأموال الكبيرة وتتجنب فخاخ السوق.", copy: "نسخ عنوان المحفظة 📋", tg: "إرسال الإيصال عبر تلغرام 🚀", footer: "إيداع 5 USDT -> إرسال الإيصال -> استلام التقرير", network: "الأفضل: شبكة BEP20 (أقل رسوم)", dir: "rtl", alert: "تم نسخ العنوان!", tgMsg: "مرحباً، أودعت 5 USDT. أرجو إرسال تقرير الـ VIP الخاص باليوم." }
         };
         let currentLang = 'en';
         function setLang(l) {
