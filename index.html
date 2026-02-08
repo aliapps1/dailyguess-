@@ -23,6 +23,7 @@
         .copy-btn { background: #fff; color: #000; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: bold; margin-bottom: 15px; width: 100%; }
         .telegram-btn { background: #0088cc; color: white; border: none; padding: 14px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; font-size: 14px; text-decoration: none; display: block; }
         .footer-info { font-size: 11px; color: var(--gold); margin-top: 15px; line-height: 1.6; }
+        .network-tip { font-size: 10px; color: #00ff41; margin-bottom: 8px; display: block; }
     </style>
 </head>
 <body onload="setLang('en')">
@@ -46,19 +47,20 @@
             <h3 id="vipTitle" style="color:var(--gold); margin-top: 0;">💎 Behavioral Anomaly Report</h3>
             <p id="vipDesc" style="font-size:12px; color:#ccc;">Unlock today's report to see divergence in crowd behavior.</p>
             <div class="wallet-container">
-                <span style="font-size:10px; color:var(--soft-gray); display:block; margin-bottom:5px;">Network: USDT (ERC20/BEP20)</span>
+                <span class="network-tip" id="networkTip">Recommended: BEP20 (Fee ~$0.3)</span>
+                <span style="font-size:10px; color:var(--soft-gray); display:block; margin-bottom:5px;">Network: USDT (BEP20 / ERC20)</span>
                 <code class="wallet" id="walletAddr">0xcF85220ED48390546BF9C1ab8B5056B009221BB7</code>
             </div>
             <button class="copy-btn" onclick="copyWallet()" id="copyBtnText">Copy Wallet Address 📋</button>
             <button class="telegram-btn" onclick="sendToTelegram()" id="tgBtnText">Send Receipt to Telegram 🚀</button>
-            <p class="footer-info" id="footerText">Deposit 2 USDT -> Send Receipt -> Get Analysis</p>
+            <p class="footer-info" id="footerText">Deposit 5 USDT -> Send Receipt -> Get Analysis</p>
         </div>
     </div>
     <script>
         const translations = {
-            en: { badge: "Collective Intelligence", q: "Retail vs. Whale Behavior Analysis", sub: "Are you falling into the crowd's trap?", opt1: "Bullish - High Confidence (Buy Trap?)", opt2: "Bullish - Cautious", opt3: "Bearish - High Confidence (Sell Exhaustion?)", opt4: "Bearish - Cautious", btn: "Extract Patterns & View Anomaly 🚀", vipT: "💎 Behavioral Anomaly Report", vipD: "Unlock today's report to see divergence in crowd behavior and market reversal points.", copy: "Copy Wallet Address 📋", tg: "Send Receipt to Telegram 🚀", footer: "Deposit 5 USDT -> Send Receipt -> Get Analysis", dir: "ltr", alert: "Wallet address copied!", tgMsg: "Hello, I've deposited 5 USDT. Send me the Behavioral Report." },
-            fa: { badge: "هوش جمعی (Collective Intelligence)", q: "تحلیل رفتار توده در مقابل نهنگ‌ها", sub: "ببین اکثریت بازار در چه تله‌ای افتاده‌اند؟", opt1: "صعودی - اطمینان کامل (تله خریداران؟)", opt2: "صعودی - محتاطانه", opt3: "نزولی - اطمینان کامل (اشباع فروش؟)", opt4: "نزولی - محتاطانه", btn: "استخراج الگو و مشاهده آنومالی 🚀", vipT: "💎 گزارش آنومالی رفتاری (VIP)", vipD: "برای دسترسی به تحلیل واگرایی رفتار توده و شناسایی نقاط برگشت قیمت، گزارش امروز را باز کنید.", copy: "کپی آدرس ولت 📋", tg: "ارسال رسید در تلگرام 🚀", footer: "واریز 5 تتر -> ارسال رسید -> دریافت فایل آنالیز", dir: "rtl", alert: "آدرس ولت کپی شد!", tgMsg: "سلام، من 5 تتر واریز کردم. لطفا گزارش آنومالی رفتاری را بفرستید." },
-            ar: { badge: "الذكاء الجماعي (Collective Intelligence)", q: "تحليل سلوك الجمهور مقابل الحيتان", sub: "هل تقع في فخ المتداولين الآخرين؟", opt1: "صعودي - ثقة عالية (فخ شراء؟)", opt2: "صعودي - حذر", opt3: "نزولي - ثقة عالية (استنزاف البيع؟)", opt4: "نزولي - حذر", btn: "استخراج الأنماط وعرض الشذوذ 🚀", vipT: "💎 تقرير شذوذ السلوك (VIP)", vipD: "افتح تقرير اليوم لمشاهدة الانحراف في سلوك الجمهور ونقاط انعكاس السوق.", copy: "نسخ عنوان المحفظة 📋", tg: "إرسال الإيصال عبر تلغرام 🚀", footer: "إيداع 5 USDT -> إرسال الإيصال -> استلام التحليل", dir: "rtl", alert: "تم نسخ عنوان المحفظة!", tgMsg: "مرحباً، لقد أودعت 5 USDT. أرسل لي تقرير شذوذ السلوك." }
+            en: { badge: "Collective Intelligence", q: "Retail vs. Whale Behavior Analysis", sub: "Are you falling into the crowd's trap?", opt1: "Bullish - High Confidence (Buy Trap?)", opt2: "Bullish - Cautious", opt3: "Bearish - High Confidence (Sell Exhaustion?)", opt4: "Bearish - Cautious", btn: "Extract Patterns & View Anomaly 🚀", vipT: "💎 Behavioral Anomaly Report", vipD: "Unlock today's report to see divergence in crowd behavior and market reversal points.", copy: "Copy Wallet Address 📋", tg: "Send Receipt to Telegram 🚀", footer: "Deposit 5 USDT -> Send Receipt -> Get Analysis", network: "Recommended: BEP20 (Fee ~$0.3)", dir: "ltr", alert: "Wallet address copied!", tgMsg: "Hello, I've deposited 5 USDT. Please send me the Behavioral Anomaly Report." },
+            fa: { badge: "هوش جمعی", q: "تحلیل رفتار توده در مقابل نهنگ‌ها", sub: "ببین اکثریت بازار در چه تله‌ای افتاده‌اند؟", opt1: "صعودی - اطمینان کامل (تله خریداران؟)", opt2: "صعودی - محتاطانه", opt3: "نزولی - اطمینان کامل (اشباع فروش؟)", opt4: "نزولی - محتاطانه", btn: "استخراج الگو و مشاهده آنومالی 🚀", vipT: "💎 گزارش آنومالی رفتاری (VIP)", vipD: "برای دسترسی به تحلیل واگرایی رفتار توده و شناسایی نقاط برگشت قیمت، گزارش امروز را باز کنید.", copy: "کپی آدرس ولت 📋", tg: "ارسال رسید در تلگرام 🚀", footer: "واریز ۵ تتر -> ارسال رسید -> دریافت فایل آنالیز", network: "پیشنهاد: شبکه BEP20 (کارمزد ~۰.۳ دلار)", dir: "rtl", alert: "آدرس ولت کپی شد!", tgMsg: "سلام، من ۵ تتر برای دریافت گزارش آنومالی و تحلیل نهنگ‌ها واریز کردم. این رسید من است:" },
+            ar: { badge: "الذكاء الجماعي", q: "تحليل سلوك الجمهور مقابل الحيتان", sub: "هل تقع في فخ المتداولين الآخرين؟", opt1: "صعودي - ثقة عالية (فخ شراء؟)", opt2: "صعودي - حذر", opt3: "نزولي - ثقة عالية (استنزاف البيع؟)", opt4: "نزولي - حذر", btn: "استخراج الأنماط وعرض الشذوذ 🚀", vipT: "💎 تقرير شذوذ السلوك (VIP)", vipD: "افتح تقرير اليوم لمشاهدة الانحراف في سلوك الجمهور ونقاط انعكاس السوق.", copy: "نسخ عنوان المحفظة 📋", tg: "إرسال الإيصال عبر تلغرام 🚀", footer: "إيداع 5 USDT -> إرسال الإيصال -> استلام التحليل", network: "نوصي بـ: BEP20 (رسوم ~0.3 دولار)", dir: "rtl", alert: "تم نسخ عنوان المحفظة!", tgMsg: "مرحباً، لقد أودعت 5 USDT للحصول على تقرير شذوذ السلوك وتحليل الحيتان. إليك الإيصال:" }
         };
         let currentLang = 'en';
         function setLang(l) {
@@ -76,19 +78,17 @@
             document.getElementById('copyBtnText').innerText = t.copy;
             document.getElementById('tgBtnText').innerText = t.tg;
             document.getElementById('footerText').innerText = t.footer;
+            document.getElementById('networkTip').innerText = t.network;
             document.body.dir = t.dir;
         }
         function showVip() { document.getElementById('vipBox').style.display = 'block'; window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }
         function copyWallet() { navigator.clipboard.writeText("0xcF85220ED48390546BF9C1ab8B5056B009221BB7"); alert(translations[currentLang].alert); }
-
-        function sendToTelegram() {
-    const telegramId = "Dailyguess"; // آیدی ربات یا اکانت شما
-    const msg = encodeURIComponent(translations[currentLang].tgMsg);
-    // اضافه کردن کد زبان به انتهای پیام برای اینکه شما بفهمید به چه زبانی جواب دهید
-    const langNote = encodeURIComponent("\n\n(Language: " + currentLang + ")");
-    window.open(`https://t.me/${telegramId}?text=${msg}${langNote}`, '_blank');
-}
-
+        function sendToTelegram() { 
+            const telegramId = "Dailyguess"; 
+            const msg = encodeURIComponent(translations[currentLang].tgMsg);
+            const langNote = encodeURIComponent("\n\n(Language: " + currentLang + ")");
+            window.open(`https://t.me/${telegramId}?text=${msg}${langNote}`, '_blank'); 
+        }
     </script>
 </body>
 </html>
