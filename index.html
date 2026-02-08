@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DailyGuess AI Analysis</title>
+    <style>
+        :root { --gold: #d4af37; --dark: #0a0a0a; --gray: #1a1a1a; --soft-gray: #888; }
+        body { background: var(--dark); color: white; font-family: Tahoma, sans-serif; text-align: center; margin: 0; padding: 20px; transition: all 0.3s; }
+        .lang-switch { margin-bottom: 20px; display: flex; justify-content: center; gap: 10px; }
+        button.lang { background: var(--gray); color: var(--gold); border: 1px solid var(--gold); padding: 8px 15px; cursor: pointer; border-radius: 8px; font-size: 12px; font-weight: bold; min-width: 80px; }
+        .card { background: var(--gray); border: 1px solid var(--gold); border-radius: 20px; padding: 30px; max-width: 400px; margin: 0 auto; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1); }
+        .badge { background: var(--gold); color: black; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 11px; text-transform: uppercase; }
+        h1 { margin: 20px 0; font-size: 19px; line-height: 1.4; min-height: 55px; display: flex; align-items: center; justify-content: center; }
+        .description { color: var(--soft-gray); font-size: 13px; margin-bottom: 25px; min-height: 40px; }
+        select { width: 100%; padding: 12px; background: #252525; color: white; border: 1px solid #444; border-radius: 10px; margin-bottom: 20px; font-family: inherit; font-size: 13px; cursor: pointer; }
+        .btn-main { background: var(--gold); color: black; border: none; padding: 15px 30px; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2); transition: 0.3s; }
+        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); }
+        .vip-box { display: none; margin-top: 25px; padding: 20px; border-top: 1px dashed #444; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .wallet-container { background: #000; border: 1px solid #333; padding: 15px; margin: 15px 0; border-radius: 10px; }
+        .wallet { color: #00ff41; font-family: monospace; font-size: 11px; word-break: break-all; display: block; margin-bottom: 10px; }
+        .copy-btn { background: #fff; color: #000; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: bold; margin-bottom: 15px; width: 100%; }
+        .telegram-btn { background: #0088cc; color: white; border: none; padding: 14px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; font-size: 14px; text-decoration: none; display: block; }
+        .footer-info { font-size: 11px; color: var(--gold); margin-top: 15px; line-height: 1.6; }
+    </style>
+</head>
+<body onload="setLang('en')">
+    <div class="lang-switch">
+        <button class="lang" onclick="setLang('en')">English</button>
+        <button class="lang" onclick="setLang('ar')">العربية</button>
+        <button class="lang" onclick="setLang('fa')">فارسی</button>
+    </div>
+    <div class="card">
+        <span class="badge" id="badgeText">Collective Intelligence</span>
+        <h1 id="question">Retail vs. Whale Behavior Analysis</h1>
+        <p class="description" id="subText">Are you falling into the crowd's trap?</p>
+        <select id="userChoice">
+            <option value="1" id="opt1">Bullish - High Confidence (Buy Trap?)</option>
+            <option value="2" id="opt2">Bullish - Cautious</option>
+            <option value="3" id="opt3">Bearish - High Confidence (Sell Exhaustion?)</option>
+            <option value="4" id="opt4">Bearish - Cautious</option>
+        </select>
+        <button class="btn-main" onclick="showVip()" id="btnText">Extract Patterns & View Anomaly 🚀</button>
+        <div id="vipBox" class="vip-box">
+            <h3 id="vipTitle" style="color:var(--gold); margin-top: 0;">💎 Behavioral Anomaly Report</h3>
+            <p id="vipDesc" style="font-size:12px; color:#ccc;">Unlock today's report to see divergence in crowd behavior.</p>
+            <div class="wallet-container">
+                <span style="font-size:10px; color:var(--soft-gray); display:block; margin-bottom:5px;">Network: USDT (ERC20/BEP20)</span>
+                <code class="wallet" id="walletAddr">0xcF85220ED48390546BF9C1ab8B5056B009221BB7</code>
+            </div>
+            <button class="copy-btn" onclick="copyWallet()" id="copyBtnText">Copy Wallet Address 📋</button>
+            <button class="telegram-btn" onclick="sendToTelegram()" id="tgBtnText">Send Receipt to Telegram 🚀</button>
+            <p class="footer-info" id="footerText">Deposit 2 USDT -> Send Receipt -> Get Analysis</p>
+        </div>
+    </div>
+    <script>
+        const translations = {
+            en: { badge: "Collective Intelligence", q: "Retail vs. Whale Behavior Analysis", sub: "Are you falling into the crowd's trap?", opt1: "Bullish - High Confidence (Buy Trap?)", opt2: "Bullish - Cautious", opt3: "Bearish - High Confidence (Sell Exhaustion?)", opt4: "Bearish - Cautious", btn: "Extract Patterns & View Anomaly 🚀", vipT: "💎 Behavioral Anomaly Report", vipD: "Unlock today's report to see divergence in crowd behavior and market reversal points.", copy: "Copy Wallet Address 📋", tg: "Send Receipt to Telegram 🚀", footer: "Deposit 2 USDT -> Send Receipt -> Get Analysis", dir: "ltr", alert: "Wallet address copied!", tgMsg: "Hello, I've deposited 2 USDT. Send me the Behavioral Report." },
+            fa: { badge: "هوش جمعی (Collective Intelligence)", q: "تحلیل رفتار توده در مقابل نهنگ‌ها", sub: "ببین اکثریت بازار در چه تله‌ای افتاده‌اند؟", opt1: "صعودی - اطمینان کامل (تله خریداران؟)", opt2: "صعودی - محتاطانه", opt3: "نزولی - اطمینان کامل (اشباع فروش؟)", opt4: "نزولی - محتاطانه", btn: "استخراج الگو و مشاهده آنومالی 🚀", vipT: "💎 گزارش آنومالی رفتاری (VIP)", vipD: "برای دسترسی به تحلیل واگرایی رفتار توده و شناسایی نقاط برگشت قیمت، گزارش امروز را باز کنید.", copy: "کپی آدرس ولت 📋", tg: "ارسال رسید در تلگرام 🚀", footer: "واریز ۲ تتر -> ارسال رسید -> دریافت فایل آنالیز", dir: "rtl", alert: "آدرس ولت کپی شد!", tgMsg: "سلام، من ۲ تتر واریز کردم. لطفا گزارش آنومالی رفتاری را بفرستید." },
+            ar: { badge: "الذكاء الجماعي (Collective Intelligence)", q: "تحليل سلوك الجمهور مقابل الحيتان", sub: "هل تقع في فخ المتداولين الآخرين؟", opt1: "صعودي - ثقة عالية (فخ شراء؟)", opt2: "صعودي - حذر", opt3: "نزولي - ثقة عالية (استنزاف البيع؟)", opt4: "نزولي - حذر", btn: "استخراج الأنماط وعرض الشذوذ 🚀", vipT: "💎 تقرير شذوذ السلوك (VIP)", vipD: "افتح تقرير اليوم لمشاهدة الانحراف في سلوك الجمهور ونقاط انعكاس السوق.", copy: "نسخ عنوان المحفظة 📋", tg: "إرسال الإيصال عبر تلغرام 🚀", footer: "إيداع 2 USDT -> إرسال الإيصال -> استلام التحليل", dir: "rtl", alert: "تم نسخ عنوان المحفظة!", tgMsg: "مرحباً، لقد أودعت 2 USDT. أرسل لي تقرير شذوذ السلوك." }
+        };
+        let currentLang = 'en';
+        function setLang(l) {
+            currentLang = l; const t = translations[l];
+            document.getElementById('badgeText').innerText = t.badge;
+            document.getElementById('question').innerText = t.q;
+            document.getElementById('subText').innerText = t.sub;
+            document.getElementById('opt1').innerText = t.opt1;
+            document.getElementById('opt2').innerText = t.opt2;
+            document.getElementById('opt3').innerText = t.opt3;
+            document.getElementById('opt4').innerText = t.opt4;
+            document.getElementById('btnText').innerText = t.btn;
+            document.getElementById('vipTitle').innerText = t.vipT;
+            document.getElementById('vipDesc').innerText = t.vipD;
+            document.getElementById('copyBtnText').innerText = t.copy;
+            document.getElementById('tgBtnText').innerText = t.tg;
+            document.getElementById('footerText').innerText = t.footer;
+            document.body.dir = t.dir;
+        }
+        function showVip() { document.getElementById('vipBox').style.display = 'block'; window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }
+        function copyWallet() { navigator.clipboard.writeText("0xcF85220ED48390546BF9C1ab8B5056B009221BB7"); alert(translations[currentLang].alert); }
+        function sendToTelegram() { const telegramId = "Dailyguess"; const msg = encodeURIComponent(translations[currentLang].tgMsg); window.open(`https://t.me/${telegramId}?text=${msg}`, '_blank'); }
+    </script>
+</body>
+</html>
